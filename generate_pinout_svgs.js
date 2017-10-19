@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const title = 'DISTRAP Bus Connector v0.7';
+const title = 'DISTRAP Bus Connector v0.7.1';
 
 const sigDefaults = {
   bgColor: '#ffffff',
@@ -113,36 +113,36 @@ const pinouts = {
 
 const microfitKeys = {
   '2x2': [
-    3, 2, // 2
-    2, 3  // 4
+    3, 2,
+    2, 3,
   ],
   '2x3': [
-    2, 2, // 2
+    2, 3, // 6
     2, 2, // 4
-    2, 3  // 6
+    2, 2, // 2
   ],
   '2x4': [
-    3, 0, // 2
-    2, 2, // 4
+    2, 2, // 8
     3, 3, // 6
-    2, 2  // 8
+    2, 2, // 4
+    3, 0, // 2
   ],
   '2x5': [
-    2, 2, // 2
-    3, 3, // 4
-    2, 3, // 6
+    0, 3, // 10
     2, 3, // 8
-    0, 3  // 10
+    2, 3, // 6
+    3, 3, // 4
+    2, 2, // 2
   ],
   '2x8': [
-    3, 3, // 2
-    3, 2, // 4
-    0, 3, // 6
-    3, 3, // 8
-    2, 2, // 10
-    2, 3, // 12
+    3, 3, // 16
     3, 3, // 14
-    3, 3  // 16
+    2, 3, // 12
+    2, 2, // 10
+    3, 3, // 8
+    0, 3, // 6
+    3, 2, // 4
+    3, 3, // 2
   ]
 };
 const connectorShapes = {
@@ -283,7 +283,8 @@ const mkSVG = id => {
         microfitKey: microfitKeys[id][pinIndex]
       };
       pinLegend[pinNumber] = pinParam;
-      pinoutSVGarr.push(keyShapes[pinParam.microfitKey](x, y, pinParam));
+      const keyId = pinParam.microfitKey;
+      pinoutSVGarr.push(keyShapes[keyId](x, y, pinParam));
       if (!isLower) {
         colNum++;
         x += gridW;
